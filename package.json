@@ -1,12 +1,17 @@
 {
   "name": "poll-api",
   "version": "1.0.0",
-  "description": "シンプルな投票API (Express)",
+  "description": "Simple Poll API",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js"
+    "start": "node app.js",
+    "start:daemon": "pm2 start app.js --name poll-api",
+    "stop:daemon": "pm2 stop poll-api",
+    "restart:daemon": "pm2 restart poll-api"
   },
   "dependencies": {
-    "express": "^4.18.2"
-  }
+    "express": "^4.18.2",
+    "pm2": "^6.0.14"
+  },
+  "license": "MIT"
 }
