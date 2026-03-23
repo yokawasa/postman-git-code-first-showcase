@@ -29,9 +29,7 @@ jobs:
       - name: Login to Postman CLI
         run: postman login --with-api-key ${{ secrets.POSTMAN_API_KEY }}
       - name: Run API tests
-        run: |
-          postman collection run postman/collections/Poll\ API \
-            -e postman/environments/Local.environment.yaml 
+        run: postman collection run postman/collections/Poll\ API
       - name: Push to Postman Cloud (only on push to main)
         if: github.event.pull_request.merged == true
         run: postman workspace push -y
