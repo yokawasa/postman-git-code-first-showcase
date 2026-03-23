@@ -1,0 +1,8 @@
+$kind: collection
+name: Poll API
+description: シンプルな投票API - Express based polling system
+variables:
+  - key: baseUrl
+    value: 'http://localhost:3000'
+  - key: pollId
+    value: ''

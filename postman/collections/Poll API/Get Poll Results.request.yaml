@@ -1,0 +1,28 @@
+$kind: http-request
+name: Get Poll Results
+method: GET
+url: '{{baseUrl}}/polls/{{pollId}}'
+order: 3000
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Status code is 200", function () {
+          pm.response.to.have.status(200);
+      });
+
+      pm.test("Response has question and options properties", function () {
+          var jsonData = pm.response.json();
+          pm.expect(jsonData).to.have.property('question');
+          pm.expect(jsonData).to.have.property('options');
+      });
+
+      pm.test("Options array contains vote counts", function () {
+          var jsonData = pm.response.json();
+          pm.expect(jsonData.options).to.be.an('array');
+          if (jsonData.options.length > 0) {
+              jsonData.options.forEach(function(option) {
+                  pm.expect(option).to.have.property('votes');
+              });
+          }
+      });

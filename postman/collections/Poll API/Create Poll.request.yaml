@@ -1,0 +1,30 @@
+$kind: http-request
+name: Create Poll
+method: POST
+url: '{{baseUrl}}/polls'
+order: 1000
+headers:
+  - key: Content-Type
+    value: application/json
+body:
+  type: json
+  content: |-
+    {
+      "question": "What is your favorite programming language?",
+      "options": ["JavaScript", "Python", "Go", "Rust"]
+    }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Status code is 201", function () {
+          pm.response.to.have.status(201);
+      });
+
+      pm.test("Response has id property", function () {
+          var jsonData = pm.response.json();
+          pm.expect(jsonData).to.have.property('id');
+          
+          // Save poll id to collection variable
+          pm.collectionVariables.set("pollId", jsonData.id);
+      });
