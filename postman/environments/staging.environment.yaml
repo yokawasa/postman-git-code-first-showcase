@@ -1,0 +1,8 @@
+name: staging
+values:
+  - key: baseUrl
+    value: 'https://api.example.com'
+    enabled: true
+  - key: test
+    value: staging-test
+    enabled: true

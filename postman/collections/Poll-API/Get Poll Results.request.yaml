@@ -1,11 +1,12 @@
 $kind: http-request
 name: Get Poll Results
 method: GET
-url: '{{baseUrl}}/polls/{{pollId}}'
+url: "{{baseUrl}}/polls/{{pollId}}?test={{test}}"
+queryParams:
+  test: "{{test}}"
 order: 3000
 scripts:
   - type: afterResponse
-    language: text/javascript
     code: |-
       pm.test("Status code is 200", function () {
           pm.response.to.have.status(200);
@@ -26,3 +27,4 @@ scripts:
               });
           }
       });
+    language: text/javascript
