@@ -35,4 +35,5 @@ jobs:
         if: github.event_name == 'push'
         run: postman workspace push -y
       - name: Stop API server
+        if: always()
         run: npm run stop:daemon

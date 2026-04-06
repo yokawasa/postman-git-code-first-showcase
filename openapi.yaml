@@ -1,0 +1,155 @@
+openapi: 3.0.0
+info:
+  title: Poll API
+  version: 1.0.0
+  description: シンプルな投票API - Express based polling system
+servers:
+  - url: http://localhost:3000
+paths:
+  /polls:
+    post:
+      summary: Create Poll
+      responses:
+        '201':
+          description: Create Poll - Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    format: color
+                  question:
+                    type: string
+                  options:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        name:
+                          type: string
+                        votes:
+                          type: integer
+                  createdAt:
+                    type: string
+                    format: date-time
+              example:
+                id: abc123
+                question: What is your favorite programming language?
+                options:
+                  - name: JavaScript
+                    votes: 0
+                  - name: Python
+                    votes: 0
+                  - name: Go
+                    votes: 0
+                  - name: Rust
+                    votes: 0
+                createdAt: '2024-01-15T10:30:00Z'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                question:
+                  type: string
+                options:
+                  type: array
+                  items:
+                    type: string
+            example:
+              question: What is your favorite programming language?
+              options:
+                - JavaScript
+                - Python
+                - Go
+                - Rust
+  /polls/{pollId}/vote:
+    post:
+      summary: Vote on Poll
+      responses:
+        '200':
+          description: Vote on Poll - Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  option:
+                    type: string
+                  totalVotes:
+                    type: integer
+              example:
+                message: Vote recorded successfully
+                option: JavaScript
+                totalVotes: 1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                option:
+                  type: string
+            example:
+              option: JavaScript
+    parameters:
+      - name: pollId
+        in: path
+        required: true
+        schema:
+          type: string
+  /polls/{pollId}:
+    get:
+      summary: Get Poll Results
+      responses:
+        '200':
+          description: Get Poll Results - Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    format: color
+                  question:
+                    type: string
+                  options:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        name:
+                          type: string
+                        votes:
+                          type: integer
+                  totalVotes:
+                    type: integer
+                  createdAt:
+                    type: string
+                    format: date-time
+              example:
+                id: abc123
+                question: What is your favorite programming language?
+                options:
+                  - name: JavaScript
+                    votes: 5
+                  - name: Python
+                    votes: 3
+                  - name: Go
+                    votes: 2
+                  - name: Rust
+                    votes: 1
+                totalVotes: 11
+                createdAt: '2024-01-15T10:30:00Z'
+    parameters:
+      - name: pollId
+        in: path
+        required: true
+        schema:
+          type: string

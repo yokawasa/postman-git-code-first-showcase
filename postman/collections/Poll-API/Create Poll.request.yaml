@@ -1,11 +1,10 @@
 $kind: http-request
 name: Create Poll
 method: POST
-url: '{{baseUrl}}/polls'
+url: "{{baseUrl}}/polls"
 order: 1000
 headers:
-  - key: Content-Type
-    value: application/json
+  Content-Type: application/json
 body:
   type: json
   content: |-
@@ -15,8 +14,7 @@ body:
     }
 scripts:
   - type: afterResponse
-    language: text/javascript
-    code: |-
+    code: |
       pm.test("Status code is 201", function () {
           pm.response.to.have.status(201);
       });
@@ -28,3 +26,4 @@ scripts:
           // Save poll id to collection variable
           pm.collectionVariables.set("pollId", jsonData.id);
       });
+    language: text/javascript
