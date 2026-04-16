@@ -8,7 +8,7 @@
     "start:daemon": "pm2 start app.js --name poll-api",
     "stop:daemon": "pm2 stop poll-api",
     "restart:daemon": "pm2 restart poll-api",
-    "postman:test": "postman collection run postman/collections/Poll\\ API",
+    "postman:test": "postman collection run postman/collections/Poll-API",
     "postman:publish": "postman login && postman workspace push"
   },
   "dependencies": {

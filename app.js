@@ -42,6 +42,19 @@ app.get('/polls/:id', (req, res) => {
   });
 });
 
+app.get('/polls/abc/:id', (req, res) => {
+  const { id } = req.params;
+  const poll = polls[id];
+  if (!poll) return res.status(404).json({ error: 'Poll not found' });
+  res.json({
+    question: poll.question,
+    options: poll.options
+  });
+});
+
+
+
+
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
   console.log(`Poll API listening on port ${port}`);

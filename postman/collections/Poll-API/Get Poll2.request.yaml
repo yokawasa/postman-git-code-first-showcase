@@ -1,0 +1,8 @@
+$kind: http-request
+name: Get Poll2
+url: "{{baseUrl}}/polls/abc/{{pollId}}?test={{test}}"
+method: GET
+queryParams:
+  - key: test
+    value: "{{test}}"
+order: 4345037514080360
